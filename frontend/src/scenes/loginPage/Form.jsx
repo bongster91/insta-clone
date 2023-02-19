@@ -84,7 +84,7 @@ const Form = () => {
             `http://localhost:9000/auth/login`,
             {
                 method: 'POST',
-                // headers: { 'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify(values),
             }
         ).catch((error) => console.log(`Failed to log in: ${error}`));
