@@ -190,7 +190,7 @@ const Form = () => {
                                     p='1rem'
                                 >
                                     <Dropzone
-                                        acceptedFiles='.jpg, .jpeg, .png'
+                                        acceptedFiles='.jpg,.jpeg,.png'
                                         multiple={false}
                                         onDrop={(acceptedFiles) => setFieldValue('picture', acceptedFiles[0])}
                                     >
@@ -202,7 +202,7 @@ const Form = () => {
                                                 sx={{ '&:hover': { cursor: 'pointer' }}}
                                             >
                                                 <input {...getInputProps()} />
-                                                { !values.picure ? (
+                                                { !values.picture ? (
                                                     <p>Add Pictures Here</p>
                                                 ) : (
                                                     <FlexBetween>
