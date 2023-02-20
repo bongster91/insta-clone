@@ -4,13 +4,14 @@ import User from '../models/User.js';
 // CREATE
 export const createPost = async(req, res) => {
     try {
+        // res.set('Access-Control-Allow-Origin', '*');
         const { userId, description, picturePath } = req.body;
         const user = await User.findById(userId);
-
+        
         const newPost = new Post({
             userId,
             firstName: user.firstName,
-            lastname: user.lastName,
+            lastName: user.lastName,
             location: user.location,
             description,
             userPicturePath: user.picturePath,
@@ -21,7 +22,6 @@ export const createPost = async(req, res) => {
 
         await newPost.save();
         const post = await Post.find();
-
         res.status(201).json(post);
 
     } catch(error) {
