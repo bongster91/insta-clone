@@ -1,6 +1,9 @@
 import { Box } from '@mui/material';
+import { apiURL } from '../Util/apiURL';
 
 const UserImage = ({ image, size='60px' }) => {
+    const API = apiURL();
+
     return (
         <Box width={size} height={size}>
             <img 
@@ -11,7 +14,7 @@ const UserImage = ({ image, size='60px' }) => {
                 width={size}
                 height={size}
                 alt='user'
-                src={`http://localhost:3000/assets/${image}`}
+                src={`${API}/assets/${image}`}
             />
         </Box>
     );

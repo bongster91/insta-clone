@@ -1,4 +1,5 @@
-import { useSelector, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -12,32 +13,49 @@ import {
     Typography,
     Divider,
     useTheme,
-} from '@mui/materials';
+} from '@mui/material';
 
 import UserImage from 'components/UserImage';
 import FlexBetween from 'components/FlexBetween';
 import WidgetWrapper from 'components/WidgetWrapper';
+import { apiURL } from 'Util/apiURL';
 
 const UserWidget = ({ userId, picturePath }) => {
     const [ user, setUser ] = useState(null);
     const { palette } = useTheme();
     const navigate = useNavigate();
     const token = useSelector((state) => state.token);
+    const API = apiURL();
 
     const dark = palette.neutral.dark;
     const medium = palette.neutral.medium;
     const main = palette.neutral.main;
 
-    const getUser = async() => {
-        const response = await fetch(`http://localhost:3000/users/${userId}`,
-            {
-                method: 'GET',
-                headers: { Authorization: `Bearer ${token}`},
-            }
-        );
-        const data = await response.json();
-        setUser(data);
-    };
+    const getUser = async () => {
+
+        try {
+            const response = await fetch(`${API}/users/${userId}`, {
+                method: "GET",
+                headers: { Authorization: `Bearer ${token}` },
+            });
+        
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            };
+        
+            const contentType = response.headers.get("content-type");
+            
+            if (contentType && contentType.indexOf("application/json") !== -1) {
+                const data = await response.json();
+                setUser(data);
+            } else {
+                throw new TypeError("Server returned non-JSON data");
+            };
+
+        } catch (error) {
+            console.error("Error fetching user:", error);
+        };
+      };
 
     useEffect(() => {
         getUser();
@@ -79,13 +97,14 @@ const UserWidget = ({ userId, picturePath }) => {
                         >
                             {firstName} {lastName}
                         </Typography>
-                        <Typography color={medium}> {friends.length} </Typography>
+                        <Typography color={medium}> {friends.length} friends</Typography>
                     </Box>
-                    <ManageAccountsOutlined />
                 </FlexBetween>
+                <ManageAccountsOutlined />
+            </FlexBetween>
 
-                <Divider />
-                {/* SECOND ROW */}
+            <Divider />
+            {/* SECOND ROW */}
 
                 <Box p='1rem 0'>
                     <Box
@@ -108,7 +127,9 @@ const UserWidget = ({ userId, picturePath }) => {
                     </Box>
                 </Box>
 
-                {/* THIRD ROW */}
+            <Divider />
+            {/* THIRD ROW */}
+
                 <Box p='1rem 0'>
                     <FlexBetween mb='0.5rem'>
                         <Typography color={medium}>Who's viewed your profile</Typography>
@@ -121,7 +142,9 @@ const UserWidget = ({ userId, picturePath }) => {
                     </FlexBetween>
                 </Box>
 
-                {/* FOURTH ROW */}
+            <Divider />
+            {/* FOURTH ROW */}
+
                 <Box p='1rem 0'>
                     <Typography
                         fontSize='1rem'
@@ -158,8 +181,9 @@ const UserWidget = ({ userId, picturePath }) => {
                         <EditOutlined sx={{ color: main }} />
                     </FlexBetween>
                 </Box>
-
-            </FlexBetween>
+  
         </WidgetWrapper>
     );
 };
+
+export default UserWidget;

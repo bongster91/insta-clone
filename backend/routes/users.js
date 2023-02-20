@@ -5,14 +5,14 @@ import {
     addRemoveFriend,
 } from '../controllers/users.js';
 import { verifyToken } from '../middleware/auth.js';
-
-const router = express.Router();
+const users = express.Router({ mergeParams: true });
+// const router = express.Router();
 
 // READ
-router.get('/:id', verifyToken, getUser);
-router.get('/:id/friends', verifyToken, getUserFriends);
+users.get('/:id', verifyToken, getUser);
+users.get('/:id/friends', verifyToken, getUserFriends);
 
 // UPDATE
-router.patch('/:id/:friendId', verifyToken, addRemoveFriend);
+users.patch('/:id/:friendId', verifyToken, addRemoveFriend);
 
-export default router;
+export default users;
