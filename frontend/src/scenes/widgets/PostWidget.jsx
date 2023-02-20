@@ -41,7 +41,7 @@ const PostWidget = ({
     const likeCount = Object.keys(likes).length;
     const API = apiURL();
 
-    const palette = useTheme();
+    const { palette } = useTheme();
     const main = palette.neutral.main;
     const primary = palette.primary.main;
 
