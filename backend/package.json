@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "db:refresh": "node data/dbConfig.js"
+    "db:refresh": "node data/dbConfig.js",
+    "build": "npm install && npm run build:babel",
+    "build:babel": "babel src --out-dir dist"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +28,10 @@
     "multer-gridfs-storage": "^5.0.2"
   },
   "devDependencies": {
-    "mongo-seeding-cli": "^3.7.2"
+    "mongo-seeding-cli": "^3.7.2",
+    "@babel/cli": "^7.16.7",
+    "@babel/core": "^7.16.7",
+    "@babel/node": "^7.16.7",
+    "@babel/preset-env": "^7.16.8"
   }
 }
