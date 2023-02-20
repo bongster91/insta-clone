@@ -61,14 +61,24 @@ const upload = multer({ storage })
 const PORT = process.env.PORT || 9999;
 mongoose.set('strictQuery', false);
 
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+const connectMongo = async() => {
+    try {
+        const connection = mongoose.connect(process.env.MONGO_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        
+        });
+        console.log(`MongoDB Connected`);
 
-}).then(() => {
+    } catch(error) {
+        console.log(error);
+        process.exit(1);
+    };
+};
+
+connectMongo().then(() => {
     app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
-
-}).catch((error) => console.log(`${error} did not connect`));
+});
 
 /* ROUTES WITH FILES */
 app.post("/auth/register", upload.single("picture"), register);
@@ -78,4 +88,3 @@ app.post('/posts', verifyToken, upload.single('picture'), createPost);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use('/posts', postRoutes);
-
