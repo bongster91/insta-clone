@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
     "db:refresh": "node data/dbConfig.js",
-    "build": "npm install && npm run build:babel",
-    "build:babel": "babel src --out-dir dist"
+    "build": "npm install"
   },
   "keywords": [],
   "author": "",
