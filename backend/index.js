@@ -85,6 +85,14 @@ app.post("/auth/register", upload.single("picture"), register);
 app.post('/posts', verifyToken, upload.single('picture'), createPost);
 
 /* ROUTES */
+app.get('/', (req, res) => {
+    res.send('Insta Clone backend');
+});
+
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use('/posts', postRoutes);
+
+app.get('*', (req, res) => {
+    res.status(404).send('404: Page not found');
+});
