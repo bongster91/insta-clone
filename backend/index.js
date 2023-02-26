@@ -63,10 +63,10 @@ mongoose.set('strictQuery', false);
 
 const connectMongo = async() => {
     try {
-        const connection = mongoose.connect(process.env.MONGO_URL, {
+        mongoose.connect(process.env.MONGO_URL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-        
+          
         });
         console.log(`MongoDB Connected`);
 
