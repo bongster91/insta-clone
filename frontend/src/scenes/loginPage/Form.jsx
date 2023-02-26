@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setLogin } from 'state';
 import Dropzone from 'react-dropzone';
+
 import {
     Box,
     Button,
@@ -12,9 +13,11 @@ import {
     useTheme,
 } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import FlexBetween from 'components/FlexBetween';
+import { apiURL } from 'Util/apiURL';
 
 const registerSchema = yup.object().shape({
     firstName: yup.string().required('required'),
@@ -54,6 +57,7 @@ const Form = () => {
     const isNonMobile = useMediaQuery('(min-width: 600px)');
     const isLogin = pageType === 'login';
     const isRegister = pageType === 'register';
+    const API = apiURL();
 
     const register = async(values, onSubmitProps) => {
         // Send form info with image
@@ -65,7 +69,7 @@ const Form = () => {
         formData.append('picturePath', values.picture.name);
         
         const savedUserResponse = await fetch(
-            `http://localhost:9000/auth/register`,
+            `${API}/auth/register`,
             {
                 method: 'POST',
                 body: formData,
@@ -81,7 +85,7 @@ const Form = () => {
 
     const login = async(values, onSubmitProps) => {
         const loggedInResponse = await fetch(
-            `http://localhost:9000/auth/login`,
+            `${API}/auth/login`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json'},
