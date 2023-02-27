@@ -11,6 +11,12 @@ email: random@yahoo.com
 password: random123
 ```  
 
+[frontend](https://stirring-daffodil-2d9eec.netlify.app)
+<br>
+[backend server](https://insta-clone-backend-op1l.onrender.com)
+
+<br>
+
  Built with the following libraries/frameworks:
 
  * MongoDB
